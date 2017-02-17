@@ -5,11 +5,60 @@ var assignSurveyResults = function(q2, q3, q4, q5, q6){
   // q2-q6 are assumed to be numbers at this point
   // idea is to increment scores of the different track variables based on user responses, then report the max of those values at the end. If there's a tie, choose at random.
   var Ruby = 0;
-  var PHP = 0;
+  var PhP = 0;
   var Java = 0;
-  var CSS = 0;
+  var Css = 0;
   var Csharp = 0;
 
+  if (q2 >3){ // if answer to question 2 (like big enterprise) was sufficiently enthusiastic, increment Java and Csharp
+    Java += 1;
+    Csharp += 1;
+  } else if(q2 < 3){ // if answer is suffiently unenthusiastic, de-increment Java and Csharp
+    Java -= 1;
+    Csharp -= 1;
+  } // otherwise, we'll do nothing, which doesn't need an else statement because nothing would happen in it?
+
+  if (q3 >3){ // q3 = likes web design
+    Css += 2;
+    PhP += 1;
+  } else if (q3 < 3){
+    Css -= 1;
+  }
+
+  if (q4 >3){ // q4 = likes app development
+    Ruby += 1;
+    Java += 1;
+  } else if (q4 < 3){
+    Ruby -= 1;
+    Java -= 1;
+  }
+
+  if (q5 >3){ // q5 = likes startup
+    Ruby += 2;
+  } else if (q5 < 3){
+    Ruby -= 1;
+  }
+
+  if (q6 >4){ // q6 = likes google
+    Java += 2;
+    Csharp -= 2;
+  } else if (q6 == 4){
+    Java += 1;
+    Csharp -= 1;
+  } else if (q6 ==2){
+    Java -= 1;
+    Csharp += 1;
+  } else if (q6 == 1){
+    Java -= 2;
+    Csharp += 2;
+  }
+  // do nothing if q6 == 3
+
+  // maxVal = Math.max(Ruby,PhP,Java, Css, Csharp);
+  var trackArray = [Ruby,PhP,Java, Css, Csharp];
+  maxVal = Math.max.apply(Math.max, trackArray);
+  trackNames = ["Ruby", "PhP", "Java","Css", "Csharp"],
+  maxTrackName = trackNames[trackArray.indexOf(maxVal)];
 
 }
 
