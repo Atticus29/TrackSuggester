@@ -13,17 +13,17 @@
       <h2>How to take this survey</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div>
-    <div class="panel panel-default">
+    <div class="panel panel-default" id="survey-section">
       <div class="panel-heading">
         <h3 class="panel-title">Take the survey</h3>
       </div>
       <form id="trackSurvery">
         <div class="form-group">
-          <label for="userName">What is your name?</label>
-          <input type="text" id="userName"> <!-- Mark, test whether id can be different from for -->
+          <label for="userName"><h3>1. What is your name?</h3></label>
+          <input type="text" id="userName" value="Type your name here"> <!-- Mark, test whether id can be different from for -->
         </div>
-        <div id="q1">
-          <h3>1. I really like the idea of working with a large enterprise business.</h3>
+        <div id="q2">
+          <h3>2. I really like the idea of working with a large enterprise business.</h3>
           <div class="radio">
             <label>
               <input type="radio" name="big-business" value="strong-disagree">
@@ -55,8 +55,8 @@
             </label>
           </div>
         </div>
-        <div id="q2">
-          <h3>2. I really like the idea of designing websites.</h3>
+        <div id="q3">
+          <h3>3. I really like the idea of designing websites.</h3>
           <div class="radio">
             <label>
               <input type="radio" name="web-design" value="strong-disagree">
@@ -88,8 +88,8 @@
             </label>
           </div>
         </div>
-        <div id="q3">
-          <h3>3. I really like the idea of developing apps on mobile platforms.</h3>
+        <div id="q4">
+          <h3>4. I really like the idea of developing apps on mobile platforms.</h3>
           <div class="radio">
             <label>
               <input type="radio" name="app-design" value="strong-disagree">
@@ -121,8 +121,8 @@
             </label>
           </div>
         </div>
-        <div id="q4">
-          <h3>4. I really like the idea of working with a startup.</h3>
+        <div id="q5">
+          <h3>5. I really like the idea of working with a startup.</h3>
           <div class="radio">
             <label>
               <input type="radio" name="startup" value="strong-disagree">
@@ -154,8 +154,8 @@
             </label>
           </div>
         </div>
-        <div id="q5">
-          <h3>5. I prefer a Google framework over a Windows framework.</h3>
+        <div id="q6">
+          <h3>6. I prefer a Google framework over a Windows framework.</h3>
           <div class="radio">
             <label>
               <input type="radio" name="google" value="strong-disagree">
@@ -187,9 +187,10 @@
             </label>
           </div>
         </div>
+        <button type="submit" class="btn" id="submit-btn">Submit</button>
       </form>
     </div>
-    <div class="panel panel-default">
+    <div class="panel panel-default" id="results-section">
       <div class="panel-heading">
         <h3 class="panel-title">Survey Results</h3>
       </div>
@@ -197,6 +198,7 @@
         <p>
           <span class="name"></span>,<br>It looks like you be best suited for the <span class="track"></span>track. Apply <a href="https://www.epicodus.com/apply/">here</a>.
         </p>
+        <button type="submit" class="btn" id="redo-button">That is not the answer I was looking for</button>
       </div>
 
     </div>
