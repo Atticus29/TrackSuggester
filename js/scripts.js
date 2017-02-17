@@ -12,10 +12,14 @@ $(function(){
     var q5response = parseInt($("input:radio[name=startup]:checked").val());
     var q6response = parseInt($("input:radio[name=google]:checked").val());
     console.log(UsrName, q2response, q3response, q4response, q5response, q6response);
+    $("#results-section").show();
+    $("#survey-section").hide();
     event.preventDefault();
   });
   $("#results-reset-form").submit(function(){
     console.log("got into redo button");
+    $("#results-section").hide();
+    $("#survey-section").show();
     event.preventDefault();
   })
 });
