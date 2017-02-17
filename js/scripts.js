@@ -10,7 +10,7 @@ var getAllIndexes = function (arr, val) { // stole this one shamelessly from the
 var getRandomInt = function (min, max) { // also stole this one shamelessly from the internet
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-var assignSurveyResults = function(q2, q3, q4, q5, q6){
+var assignSurveyResults = function(q2, q3, q4, q5, q6, q7){
   // Assigns the best track based on user's answers to the survey questions
   // q2-q6 are the questions in the survey excluding the one asking the user to enter his/her/their name
   // q2-q6 are assumed to be numbers at this point
@@ -58,6 +58,12 @@ var assignSurveyResults = function(q2, q3, q4, q5, q6){
     Java -= 2;
     Csharp += 2;
   }// do nothing if q6 == 3
+
+  if (q7>3){ // q7 = likes content-heavy sites
+    PhP += 1;
+    Css -= 1;
+  } // otherwise, don't do anything
+
   return [Ruby, PhP, Java, Css, Csharp];
 }
 var getTrackWithHighestScore = function([Ruby, PhP, Java, Css, Csharp]){
@@ -80,6 +86,12 @@ var getTrackWithHighestScore = function([Ruby, PhP, Java, Css, Csharp]){
   return returnVal;
 }
 
+console.log(getTrackWithHighestScore(assignSurveyResults(1,1,1,5,3,1))); //Ruby
+console.log(getTrackWithHighestScore(assignSurveyResults(1,5,1,1,3,1))); //CSS
+console.log(getTrackWithHighestScore(assignSurveyResults(5,1,5,1,5,1))); //Java
+console.log(getTrackWithHighestScore(assignSurveyResults(1,5,1,1,3,5))); //PhP
+console.log(getTrackWithHighestScore(assignSurveyResults(5,1,5,1,1,1))); //C#
+
 // Front End
 $(function(){
   $("#trackSurvery").submit(function(){
@@ -89,7 +101,8 @@ $(function(){
     var q4response = parseInt($("input:radio[name=app-design]:checked").val());
     var q5response = parseInt($("input:radio[name=startup]:checked").val());
     var q6response = parseInt($("input:radio[name=google]:checked").val());
-    var trackScores =  assignSurveyResults(q2response, q3response, q4response, q5response, q6response);
+    var q7response = parseInt($("input:radio[name=content]:checked").val());
+    var trackScores =  assignSurveyResults(q2response, q3response, q4response, q5response, q6response, q7response);
     var bestTrack = getTrackWithHighestScore(trackScores);
     $("#results-section").show();
     $("#survey-section").hide();
