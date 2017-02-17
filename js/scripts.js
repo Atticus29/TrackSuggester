@@ -1,4 +1,18 @@
 // Back End
+
+function getAllIndexes(arr, val) { // stole this one shamelessly from the internet because I couldn't figure out how to get all indexes that matched a value instead of just the first one
+    var indexes = []
+    var i = -1;
+    while ((i = arr.indexOf(val, i+1)) != -1){
+        indexes.push(i);
+    }
+    return indexes;
+}
+
+function getRandomInt(min, max) { // also stole this one shamelessly from the internet
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 var assignSurveyResults = function(q2, q3, q4, q5, q6){
   // Assigns the best track based on user's answers to the survey questions
   // q2-q6 are the questions in the survey excluding the one asking the user to enter his/her/their name
@@ -52,15 +66,34 @@ var assignSurveyResults = function(q2, q3, q4, q5, q6){
     Java -= 2;
     Csharp += 2;
   }
-  // do nothing if q6 == 3
-
-  // maxVal = Math.max(Ruby,PhP,Java, Css, Csharp);
-  var trackArray = [Ruby,PhP,Java, Css, Csharp];
-  maxVal = Math.max.apply(Math.max, trackArray);
-  trackNames = ["Ruby", "PhP", "Java","Css", "Csharp"],
-  maxTrackName = trackNames[trackArray.indexOf(maxVal)];
-
+  return [Ruby, PhP, Java, Css, Csharp];
 }
+
+  // do nothing if q6 == 3
+var getTrackWithHighestScore = function([Ruby, PhP, Java, Css, Csharp]){
+  var trackArray = [Ruby, PhP, Java, Css, Csharp];
+  var maxVal = Math.max.apply(Math.max, trackArray);
+  var trackNames = ["Ruby", "PhP", "Java","Css", "Csharp"];
+  // can't just use indexOf because there could be more than one match
+  var idexesMatchingMax = getAllIndexes(trackArray, maxVal);
+  var maxTrackName = [];
+  for (var i = 0; i<idexesMatchingMax.length; i++){
+    maxTrackName.push(trackNames[idexesMatchingMax[i]]);
+  }
+  if (maxTrackName.length > 1){
+    // this means there is more than one track that had the highest score for this user
+    var randomMatchingIndex = getRandomInt(0, maxTrackName.length-1);
+    var returnVal = maxTrackName[randomMatchingIndex];
+  } else{
+    var returnVal = maxTrackName[0]
+  }
+  return returnVal;
+}
+
+// assignSurveyResults(1,1,1,1,1);
+var tmp = assignSurveyResults(5, 3, 3, 3, 3);
+console.log(getTrackWithHighestScore(tmp));
+// console.log(assignSurveyResults(5, 3, 3, 3, 3));
 
 // Front End
 // console.log("js is working");
