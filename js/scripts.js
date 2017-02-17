@@ -1,6 +1,5 @@
 // Back End
-
-function getAllIndexes(arr, val) { // stole this one shamelessly from the internet because I couldn't figure out how to get all indexes that matched a value instead of just the first one
+var getAllIndexes = function (arr, val) { // stole this one shamelessly from the internet because I couldn't figure out how to get all indexes that matched a value instead of just the first one
     var indexes = []
     var i = -1;
     while ((i = arr.indexOf(val, i+1)) != -1){
@@ -8,11 +7,9 @@ function getAllIndexes(arr, val) { // stole this one shamelessly from the intern
     }
     return indexes;
 }
-
-function getRandomInt(min, max) { // also stole this one shamelessly from the internet
+var getRandomInt = function (min, max) { // also stole this one shamelessly from the internet
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
 var assignSurveyResults = function(q2, q3, q4, q5, q6){
   // Assigns the best track based on user's answers to the survey questions
   // q2-q6 are the questions in the survey excluding the one asking the user to enter his/her/their name
@@ -23,7 +20,6 @@ var assignSurveyResults = function(q2, q3, q4, q5, q6){
   var Java = 0;
   var Css = 0;
   var Csharp = 0;
-
   if (q2 >3){ // if answer to question 2 (like big enterprise) was sufficiently enthusiastic, increment Java and Csharp
     Java += 1;
     Csharp += 1;
@@ -31,14 +27,12 @@ var assignSurveyResults = function(q2, q3, q4, q5, q6){
     Java -= 1;
     Csharp -= 1;
   } // otherwise, we'll do nothing, which doesn't need an else statement because nothing would happen in it?
-
   if (q3 >3){ // q3 = likes web design
     Css += 2;
     PhP += 1;
   } else if (q3 < 3){
     Css -= 1;
   }
-
   if (q4 >3){ // q4 = likes app development
     Ruby += 1;
     Java += 1;
@@ -46,13 +40,11 @@ var assignSurveyResults = function(q2, q3, q4, q5, q6){
     Ruby -= 1;
     Java -= 1;
   }
-
   if (q5 >3){ // q5 = likes startup
     Ruby += 2;
   } else if (q5 < 3){
     Ruby -= 1;
   }
-
   if (q6 >4){ // q6 = likes google
     Java += 2;
     Csharp -= 2;
@@ -65,11 +57,9 @@ var assignSurveyResults = function(q2, q3, q4, q5, q6){
   } else if (q6 == 1){
     Java -= 2;
     Csharp += 2;
-  }
+  }// do nothing if q6 == 3
   return [Ruby, PhP, Java, Css, Csharp];
 }
-
-  // do nothing if q6 == 3
 var getTrackWithHighestScore = function([Ruby, PhP, Java, Css, Csharp]){
   var trackArray = [Ruby, PhP, Java, Css, Csharp];
   var maxVal = Math.max.apply(Math.max, trackArray);
@@ -90,29 +80,17 @@ var getTrackWithHighestScore = function([Ruby, PhP, Java, Css, Csharp]){
   return returnVal;
 }
 
-// assignSurveyResults(1,1,1,1,1);
-// var tmp = assignSurveyResults(5, 3, 3, 3, 3);
-// console.log(getTrackWithHighestScore(tmp));
-// console.log(assignSurveyResults(5, 3, 3, 3, 3));
-
 // Front End
-// console.log("js is working");
 $(function(){
-  // console.log("doc ready is working");
   $("#trackSurvery").submit(function(){
-    // console.log("got in");
     var UsrName = $("#userName").val();
-    // console.log(UsrName);
     var q2response = parseInt($("input:radio[name=big-business]:checked").val());
-    // console.log(q2response);
     var q3response = parseInt($("input:radio[name=web-design]:checked").val());
     var q4response = parseInt($("input:radio[name=app-design]:checked").val());
     var q5response = parseInt($("input:radio[name=startup]:checked").val());
     var q6response = parseInt($("input:radio[name=google]:checked").val());
-    // console.log(UsrName, q2response, q3response, q4response, q5response, q6response);
     var trackScores =  assignSurveyResults(q2response, q3response, q4response, q5response, q6response);
     var bestTrack = getTrackWithHighestScore(trackScores);
-    console.log("bestTrack is: ", bestTrack)
     $("#results-section").show();
     $("#survey-section").hide();
     $(".name").text(UsrName);
