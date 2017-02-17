@@ -86,11 +86,11 @@ var getTrackWithHighestScore = function([Ruby, PhP, Java, Css, Csharp]){
   return returnVal;
 }
 
-console.log(getTrackWithHighestScore(assignSurveyResults(1,1,1,5,3,1))); //Ruby
-console.log(getTrackWithHighestScore(assignSurveyResults(1,5,1,1,3,1))); //CSS
-console.log(getTrackWithHighestScore(assignSurveyResults(5,1,5,1,5,1))); //Java
-console.log(getTrackWithHighestScore(assignSurveyResults(1,5,1,1,3,5))); //PhP
-console.log(getTrackWithHighestScore(assignSurveyResults(5,1,5,1,1,1))); //C#
+// console.log(getTrackWithHighestScore(assignSurveyResults(1,1,1,5,3,1))); //Ruby
+// console.log(getTrackWithHighestScore(assignSurveyResults(1,5,1,1,3,1))); //CSS
+// console.log(getTrackWithHighestScore(assignSurveyResults(5,1,5,1,5,1))); //Java
+// console.log(getTrackWithHighestScore(assignSurveyResults(1,5,1,1,3,5))); //PhP
+// console.log(getTrackWithHighestScore(assignSurveyResults(5,1,5,1,1,1))); //C#
 
 // Front End
 $(function(){
@@ -104,7 +104,8 @@ $(function(){
     var q7response = parseInt($("input:radio[name=content]:checked").val());
     var trackScores =  assignSurveyResults(q2response, q3response, q4response, q5response, q6response, q7response);
     var bestTrack = getTrackWithHighestScore(trackScores);
-    $("#results-section").show();
+    // $("#results-section").show();
+    $("#results-section").slideDown("slow");
     $("#survey-section").hide();
     $(".name").text(UsrName);
     $(".track").text(bestTrack);

@@ -1,3 +1,11 @@
 #results-section{
   display: none;
 }
+
+.panel-body{
+  padding: 2%;
+}
+
+#trackSurvery{
+  padding: 2%;
+}
