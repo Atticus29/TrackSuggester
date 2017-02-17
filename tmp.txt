@@ -1,0 +1,137 @@
+diff --git a/css/styles.css b/css/styles.css
+index e945735..34c7964 100644
+--- a/css/styles.css
++++ b/css/styles.css
+@@ -1,11 +1,21 @@
+-#results-section{
+-  display: none;
++body{
++  background-color: #337ab7;
++}
++.survey-description{
++  color: white;
++}
++#welcome-message{
++  text-align: left;
+ }
+-
+ .panel-body{
+   padding: 2%;
+ }
+-
++#results-section{
++  display: none;
++}
+ #trackSurvery{
+   padding: 2%;
+ }
++button{
++  margin-top: 2%;
++}
+diff --git a/index.html b/index.html
+index 6e75cd4..0a2c7b3 100644
+--- a/index.html
++++ b/index.html
+@@ -10,7 +10,17 @@
+ <body>
+   <div class="container">
+     <div class="survey-description">
+-      <h2>Welcome to the Epicodus Track Selector</h2>
++      <div class="welcome-heading">
++        <div class="row">
++          <div class="col-md-3">
++            <img src="img/survey.png" alt="survey-icon">
++          </div>
++          <div class="col-md-9">
++            <h2 id="welcome-message">Welcome to the Epicodus Track Selector</h2>
++          </div>
++      </div>
++      <hr>
++      </div>
+       <h3>How to use the selector</h3>
+       <p>Type your name in the first question's text field. For each subsequent question, select the option that you feel most strongly expresses how you are feeling right now. When you're done, click the Submit button.</p>
+     </div>
+@@ -18,10 +28,13 @@
+       <div class="panel-heading">
+         <h3 class="panel-title">The Survey</h3>
+       </div>
+-      <form id="trackSurvery">
+-        <div class="form-group">
+-          <label for="userName"><h3>1. What is your name?</h3></label>
+-          <input type="text" id="userName" value="Type your name here"> <!-- Mark, test whether id can be different from for -->
++      <form id="trackSurvery" class="form-horizontal">
++        <div class="form-group has-feedback" id="name-form-section">
++          <label class="control-label" for="testing"><h3>1. What is your name?</h3></label>
++          <input type="text" id="userName" value="" class="form-control">
++          <!-- <input type="text" id="userName" value="" class="form-control" aria-describedby="inputError2Status"> -->
++          <!-- <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span> -->
++          <!-- <span id="inputError2Status" class="sr-only">(error)</span> -->
+         </div>
+         <div id="q2">
+           <h3>2. I really like the idea of working with a large enterprise business.</h3>
+@@ -233,7 +246,7 @@
+           <span class="name"></span>,<br>It looks like you might be best suited for the <span class="track"></span> track. Apply <a href="https://www.epicodus.com/apply/">here</a>.
+         </p>
+         <form id="results-reset-form">
+-            <button type="submit" class="btn btn-primary" id="redo-button">That is not the answer I was hoping for</button>
++          <button type="submit" class="btn btn-primary" id="redo-button">That is not the answer I was hoping for</button>
+         </form>
+       </div>
+     </div>
+diff --git a/js/scripts.js b/js/scripts.js
+index e73a609..586366c 100644
+--- a/js/scripts.js
++++ b/js/scripts.js
+@@ -1,11 +1,11 @@
+ // Back End
+-var getAllIndexes = function (arr, val) { // stole this one shamelessly from the internet because I couldn't figure out how to get all indexes that matched a value instead of just the first one
+-    var indexes = []
++var getAllindices = function (arr, val) { // stole this one shamelessly from the internet because I couldn't figure out how to get all indices that matched a value instead of just the first one
++    var indices = []
+     var i = -1;
+     while ((i = arr.indexOf(val, i+1)) != -1){
+-        indexes.push(i);
++        indices.push(i);
+     }
+-    return indexes;
++    return indices;
+ }
+ var getRandomInt = function (min, max) { // also stole this one shamelessly from the internet
+     return Math.floor(Math.random() * (max - min + 1)) + min;
+@@ -71,7 +71,7 @@ var getTrackWithHighestScore = function([Ruby, PhP, Java, Css, Csharp]){
+   var maxVal = Math.max.apply(Math.max, trackArray);
+   var trackNames = ["Ruby", "PhP", "Java","Css", "Csharp"];
+   // can't just use indexOf because there could be more than one match
+-  var idexesMatchingMax = getAllIndexes(trackArray, maxVal);
++  var idexesMatchingMax = getAllindices(trackArray, maxVal);
+   var maxTrackName = [];
+   for (var i = 0; i<idexesMatchingMax.length; i++){
+     maxTrackName.push(trackNames[idexesMatchingMax[i]]);
+@@ -96,6 +96,17 @@ var getTrackWithHighestScore = function([Ruby, PhP, Java, Css, Csharp]){
+ $(function(){
+   $("#trackSurvery").submit(function(){
+     var UsrName = $("#userName").val();
++    if (UsrName){
++      $("#name-form-section").removeClass();
++      $("#name-form-section").addClass("form-group has-feedback has-success"); // This doesn't do much right now, because that section is hidden upon success
++      $("#results-section").slideDown("slow");
++      $("#survey-section").hide();
++      $(".name").text(UsrName);
++    } else{
++      alert("Whoops! You forgot to enter your name");
++      $("#name-form-section").removeClass();
++      $("#name-form-section").addClass("form-group has-feedback has-error");
++    }
+     var q2response = parseInt($("input:radio[name=big-business]:checked").val());
+     var q3response = parseInt($("input:radio[name=web-design]:checked").val());
+     var q4response = parseInt($("input:radio[name=app-design]:checked").val());
+@@ -105,9 +116,6 @@ $(function(){
+     var trackScores =  assignSurveyResults(q2response, q3response, q4response, q5response, q6response, q7response);
+     var bestTrack = getTrackWithHighestScore(trackScores);
+     // $("#results-section").show();
+-    $("#results-section").slideDown("slow");
+-    $("#survey-section").hide();
+-    $(".name").text(UsrName);
+     $(".track").text(bestTrack);
+     event.preventDefault();
+   });

@@ -1,11 +1,11 @@
 // Back End
-var getAllIndexes = function (arr, val) { // stole this one shamelessly from the internet because I couldn't figure out how to get all indexes that matched a value instead of just the first one
-    var indexes = []
+var getAllindices = function (arr, val) { // stole this one shamelessly from the internet because I couldn't figure out how to get all indices that matched a value instead of just the first one
+    var indices = []
     var i = -1;
     while ((i = arr.indexOf(val, i+1)) != -1){
-        indexes.push(i);
+        indices.push(i);
     }
-    return indexes;
+    return indices;
 }
 var getRandomInt = function (min, max) { // also stole this one shamelessly from the internet
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -71,7 +71,7 @@ var getTrackWithHighestScore = function([Ruby, PhP, Java, Css, Csharp]){
   var maxVal = Math.max.apply(Math.max, trackArray);
   var trackNames = ["Ruby", "PhP", "Java","Css", "Csharp"];
   // can't just use indexOf because there could be more than one match
-  var idexesMatchingMax = getAllIndexes(trackArray, maxVal);
+  var idexesMatchingMax = getAllindices(trackArray, maxVal);
   var maxTrackName = [];
   for (var i = 0; i<idexesMatchingMax.length; i++){
     maxTrackName.push(trackNames[idexesMatchingMax[i]]);
@@ -96,6 +96,17 @@ var getTrackWithHighestScore = function([Ruby, PhP, Java, Css, Csharp]){
 $(function(){
   $("#trackSurvery").submit(function(){
     var UsrName = $("#userName").val();
+    if (UsrName){
+      $("#name-form-section").removeClass();
+      $("#name-form-section").addClass("form-group has-feedback has-success"); // This doesn't do much right now, because that section is hidden upon success
+      $("#results-section").slideDown("slow");
+      $("#survey-section").hide();
+      $(".name").text(UsrName);
+    } else{
+      alert("Whoops! You forgot to enter your name");
+      $("#name-form-section").removeClass();
+      $("#name-form-section").addClass("form-group has-feedback has-error");
+    }
     var q2response = parseInt($("input:radio[name=big-business]:checked").val());
     var q3response = parseInt($("input:radio[name=web-design]:checked").val());
     var q4response = parseInt($("input:radio[name=app-design]:checked").val());
@@ -105,9 +116,6 @@ $(function(){
     var trackScores =  assignSurveyResults(q2response, q3response, q4response, q5response, q6response, q7response);
     var bestTrack = getTrackWithHighestScore(trackScores);
     // $("#results-section").show();
-    $("#results-section").slideDown("slow");
-    $("#survey-section").hide();
-    $(".name").text(UsrName);
     $(".track").text(bestTrack);
     event.preventDefault();
   });

@@ -1,11 +1,21 @@
-#results-section{
-  display: none;
+body{
+  background-color: #337ab7;
 }
-
+.survey-description{
+  color: white;
+}
+#welcome-message{
+  text-align: left;
+}
 .panel-body{
   padding: 2%;
 }
-
+#results-section{
+  display: none;
+}
 #trackSurvery{
   padding: 2%;
+}
+button{
+  margin-top: 2%;
 }

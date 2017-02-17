@@ -10,7 +10,17 @@
 <body>
   <div class="container">
     <div class="survey-description">
-      <h2>Welcome to the Epicodus Track Selector</h2>
+      <div class="welcome-heading">
+        <div class="row">
+          <div class="col-md-3">
+            <img src="img/survey.png" alt="survey-icon">
+          </div>
+          <div class="col-md-9">
+            <h2 id="welcome-message">Welcome to the Epicodus Track Selector</h2>
+          </div>
+      </div>
+      <hr>
+      </div>
       <h3>How to use the selector</h3>
       <p>Type your name in the first question's text field. For each subsequent question, select the option that you feel most strongly expresses how you are feeling right now. When you're done, click the Submit button.</p>
     </div>
@@ -18,10 +28,13 @@
       <div class="panel-heading">
         <h3 class="panel-title">The Survey</h3>
       </div>
-      <form id="trackSurvery">
-        <div class="form-group">
-          <label for="userName"><h3>1. What is your name?</h3></label>
-          <input type="text" id="userName" value="Type your name here"> <!-- Mark, test whether id can be different from for -->
+      <form id="trackSurvery" class="form-horizontal">
+        <div class="form-group has-feedback" id="name-form-section">
+          <label class="control-label" for="testing"><h3>1. What is your name?</h3></label>
+          <input type="text" id="userName" value="" class="form-control">
+          <!-- <input type="text" id="userName" value="" class="form-control" aria-describedby="inputError2Status"> -->
+          <!-- <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span> -->
+          <!-- <span id="inputError2Status" class="sr-only">(error)</span> -->
         </div>
         <div id="q2">
           <h3>2. I really like the idea of working with a large enterprise business.</h3>
@@ -233,7 +246,7 @@
           <span class="name"></span>,<br>It looks like you might be best suited for the <span class="track"></span> track. Apply <a href="https://www.epicodus.com/apply/">here</a>.
         </p>
         <form id="results-reset-form">
-            <button type="submit" class="btn btn-primary" id="redo-button">That is not the answer I was hoping for</button>
+          <button type="submit" class="btn btn-primary" id="redo-button">That is not the answer I was hoping for</button>
         </form>
       </div>
     </div>
