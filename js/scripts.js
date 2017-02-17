@@ -91,8 +91,8 @@ var getTrackWithHighestScore = function([Ruby, PhP, Java, Css, Csharp]){
 }
 
 // assignSurveyResults(1,1,1,1,1);
-var tmp = assignSurveyResults(5, 3, 3, 3, 3);
-console.log(getTrackWithHighestScore(tmp));
+// var tmp = assignSurveyResults(5, 3, 3, 3, 3);
+// console.log(getTrackWithHighestScore(tmp));
 // console.log(assignSurveyResults(5, 3, 3, 3, 3));
 
 // Front End
@@ -110,7 +110,9 @@ $(function(){
     var q5response = parseInt($("input:radio[name=startup]:checked").val());
     var q6response = parseInt($("input:radio[name=google]:checked").val());
     // console.log(UsrName, q2response, q3response, q4response, q5response, q6response);
-    var bestTrack =  assignSurveyResults(q2response, q3response, q4response, q5response, q6response);
+    var trackScores =  assignSurveyResults(q2response, q3response, q4response, q5response, q6response);
+    var bestTrack = getTrackWithHighestScore(trackScores);
+    console.log("bestTrack is: ", bestTrack)
     $("#results-section").show();
     $("#survey-section").hide();
     $(".name").text(UsrName);
