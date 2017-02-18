@@ -86,6 +86,29 @@ var getTrackWithHighestScore = function([Ruby, PhP, Java, Css, Csharp]){
   return returnVal;
 }
 
+var tellMeWhichAreMissing = function (q2response, q3response, q4response, q5response, q6response, q7response){
+  var missing = [];
+  if (!q2response){
+    missing.push(" question 2");
+  }
+  if (!q3response){
+    missing.push(" question 3");
+  }
+  if (!q4response){
+    missing.push(" question 4");
+  }
+  if (!q5response){
+    missing.push(" question 5");
+  }
+  if (!q6response){
+    missing.push(" question 6");
+  }
+  if (!q7response){
+    missing.push(" question 7");
+  }
+  return missing;
+}
+
 // console.log(getTrackWithHighestScore(assignSurveyResults(1,1,1,5,3,1))); //Ruby
 // console.log(getTrackWithHighestScore(assignSurveyResults(1,5,1,1,3,1))); //CSS
 // console.log(getTrackWithHighestScore(assignSurveyResults(5,1,5,1,5,1))); //Java
@@ -99,11 +122,8 @@ $(function(){
     if (UsrName){
       $("#name-form-section").removeClass();
       $("#name-form-section").addClass("form-group has-feedback has-success");
-      $("#name-form-section").append($("<span id='inputSuccess2Status' class='sr-only'>(success)</span>"));
-      $("#name-form-section").append($("<span class='glyphicon glyphicon-ok form-control-feedback' aria-hidden='true'></span>"))
-      $("#results-section").slideDown("slow");
-      // $("#survey-section").hide();
-      $(".name").text(UsrName);
+      // $("#name-form-section").append($("<span id='inputSuccess2Status' class='sr-only'>(success)</span>")); // These I think are unecessary because this will all be hidden upon sucess
+      // $("#name-form-section").append($("<span class='glyphicon glyphicon-ok form-control-feedback' aria-hidden='true'></span>")) // These I think are unecessary because this will all be hidden upon sucess
     } else{
       alert("Whoops! You forgot to enter your name");
       $("#name-form-section").removeClass();
@@ -117,8 +137,18 @@ $(function(){
     var q5response = parseInt($("input:radio[name=startup]:checked").val());
     var q6response = parseInt($("input:radio[name=google]:checked").val());
     var q7response = parseInt($("input:radio[name=content]:checked").val());
-    var trackScores =  assignSurveyResults(q2response, q3response, q4response, q5response, q6response, q7response);
-    var bestTrack = getTrackWithHighestScore(trackScores);
+    if (q2response && q3response && q4response && q5response && q6response && q7response & UsrName){
+      var trackScores =  assignSurveyResults(q2response, q3response, q4response, q5response, q6response, q7response);
+      var bestTrack = getTrackWithHighestScore(trackScores);
+      $("#results-section").slideDown("slow");
+      $("#survey-section").hide();
+      $(".name").text(UsrName);
+    } else{
+      var missingQuestions = tellMeWhichAreMissing(q2response, q3response, q4response, q5response, q6response, q7response);
+      // console.log(missingQuestions)
+      // debugger;
+      alert("Whoops. Please be sure to answer " +  missingQuestions)
+    }
     // $("#results-section").show();
     $(".track").text(bestTrack);
     event.preventDefault();
