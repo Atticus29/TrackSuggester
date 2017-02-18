@@ -145,9 +145,9 @@ $(function(){
       $(".name").text(UsrName);
     } else{
       var missingQuestions = tellMeWhichAreMissing(q2response, q3response, q4response, q5response, q6response, q7response);
-      // console.log(missingQuestions)
-      // debugger;
-      alert("Whoops. Please be sure to answer " +  missingQuestions)
+      if (missingQuestions>0){
+        alert("Whoops. Please be sure to answer " +  missingQuestions);
+      }
     }
     // $("#results-section").show();
     $(".track").text(bestTrack);
