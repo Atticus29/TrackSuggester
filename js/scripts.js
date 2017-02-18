@@ -69,7 +69,7 @@ var assignSurveyResults = function(q2, q3, q4, q5, q6, q7){
 var getTrackWithHighestScore = function([Ruby, PhP, Java, Css, Csharp]){
   var trackArray = [Ruby, PhP, Java, Css, Csharp];
   var maxVal = Math.max.apply(Math.max, trackArray);
-  var trackNames = ["Ruby", "PhP", "Java","Css", "Csharp"];
+  var trackNames = ["Ruby", "PHP", "Java","CSS", "C#"];
   // can't just use indexOf because there could be more than one match
   var idexesMatchingMax = getAllindices(trackArray, maxVal);
   var maxTrackName = [];
