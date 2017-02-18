@@ -145,7 +145,7 @@ $(function(){
       $(".name").text(UsrName);
     } else{
       var missingQuestions = tellMeWhichAreMissing(q2response, q3response, q4response, q5response, q6response, q7response);
-      if (missingQuestions>0){
+      if (missingQuestions.length>0){
         alert("Whoops. Please be sure to answer " +  missingQuestions);
       }
     }
