@@ -137,7 +137,7 @@ $(function(){
     var q5response = parseInt($("input:radio[name=startup]:checked").val());
     var q6response = parseInt($("input:radio[name=google]:checked").val());
     var q7response = parseInt($("input:radio[name=content]:checked").val());
-    if (q2response && q3response && q4response && q5response && q6response && q7response & UsrName){
+    if (q2response && q3response && q4response && q5response && q6response && q7response && UsrName){
       var trackScores =  assignSurveyResults(q2response, q3response, q4response, q5response, q6response, q7response);
       var bestTrack = getTrackWithHighestScore(trackScores);
       $("#results-section").slideDown("slow");
