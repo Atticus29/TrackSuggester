@@ -98,14 +98,18 @@ $(function(){
     var UsrName = $("#userName").val();
     if (UsrName){
       $("#name-form-section").removeClass();
-      $("#name-form-section").addClass("form-group has-feedback has-success"); // This doesn't do much right now, because that section is hidden upon success
+      $("#name-form-section").addClass("form-group has-feedback has-success");
+      $("#name-form-section").append($("<span id='inputSuccess2Status' class='sr-only'>(success)</span>"));
+      $("#name-form-section").append($("<span class='glyphicon glyphicon-ok form-control-feedback' aria-hidden='true'></span>"))
       $("#results-section").slideDown("slow");
-      $("#survey-section").hide();
+      // $("#survey-section").hide();
       $(".name").text(UsrName);
     } else{
       alert("Whoops! You forgot to enter your name");
       $("#name-form-section").removeClass();
       $("#name-form-section").addClass("form-group has-feedback has-error");
+      $("#name-form-section").append($("<span id='inputError2Status' class='sr-only'>(error)</span>"));
+      $("#name-form-section").append($("<span class='glyphicon glyphicon-remove form-control-feedback' aria-hidden='true'></span>"));
     }
     var q2response = parseInt($("input:radio[name=big-business]:checked").val());
     var q3response = parseInt($("input:radio[name=web-design]:checked").val());
